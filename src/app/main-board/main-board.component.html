@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="board" cdkDropListGroup>
+    <div class="top-board mb-4">
+      <div class="row wrapper">
+        <div class="d-flex" style="width: 30%; padding-left: 15px">
+          <div class="deck mr-5">
+            <div class="pile-card facedown" [id]="card.code" *ngFor="let card of deck; let i = index"
+              [style.z-index]="i + 1" (click)="deckClick(i)"></div>
+          </div>
+          <div class="deck ml-1" cdkDropList [cdkDropListData]="deck_unfold" (cdkDropListDropped)="drop($event)"
+            [cdkDropListEnterPredicate]="noEnter">
+            <div class="pile-card" [id]="card.code" *ngFor="let card of deck_unfold"
+              [style.background-image]="'url(' + card.image + ')'" cdkDrag [cdkDragData]="card"></div>
+          </div>
+        </div>
+
+        <div class="row right-card">
+          <div>
+            <div class="deck" cdkDropList [cdkDropListData]="finish_pile1" (cdkDropListDropped)="drop($event)">
+              <div class="pile-card" [id]="card.code" *ngFor="let card of finish_pile1; let i = index"
+                [style.z-index]="i + 1" [style.background-image]="'url(' + card.image + ')'" cdkDrag></div>
+            </div>
+          </div>
+          <div>
+            <div class="deck" cdkDropList [cdkDropListData]="finish_pile2" (cdkDropListDropped)="drop($event)">
+              <div class="pile-card" [id]="card.code" *ngFor="let card of finish_pile2; let i = index"
+                [style.z-index]="i + 1" [style.background-image]="'url(' + card.image + ')'" cdkDrag></div>
+            </div>
+          </div>
+          <div>
+            <div class="deck" cdkDropList [cdkDropListData]="finish_pile3" (cdkDropListDropped)="drop($event)">
+              <div class="pile-card" [id]="card.code" *ngFor="let card of finish_pile3; let i = index"
+                [style.z-index]="i + 1" [style.background-image]="'url(' + card.image + ')'" cdkDrag></div>
+            </div>
+          </div>
+          <div>
+            <div class="deck" cdkDropList [cdkDropListData]="finish_pile4" (cdkDropListDropped)="drop($event)">
+              <div class="pile-card" [id]="card.code" *ngFor="let card of finish_pile4; let i = index"
+                [style.z-index]="i + 1" [style.background-image]="'url(' + card.image + ')'" cdkDrag></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bot-board">
+      <div class="row wrapper">
+        <div style="height: 100vh;" *ngFor="let pile of pile_group" cdkDropList cdkDropListSortingDisabled
+          [cdkDropListData]="pile" (cdkDropListDropped)="drop($event)" [cdkDropListEnterPredicate]="pileEnterPredicate">
+          <div class="deck">
+            <div class="pile-card" [id]="card.code" *ngFor="let card of pile; let i = index; let check = last"
+              [style.background-image]="
+              card.fold ? 'url(' + bg_fold + ')' : 'url(' + card.image + ')'
+            " [style.z-index]="i + 1" [style.margin-top]="i * 35 + 'px'" cdkDrag [cdkDragData]="card"
+              [cdkDragDisabled]="card.fold || !check"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
